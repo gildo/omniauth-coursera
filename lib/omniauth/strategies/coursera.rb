@@ -23,7 +23,7 @@ module OmniAuth
           locale: raw_info['elements'].first['locale'].to_s,
           timezone: raw_info['elements'].first['timezone'].to_s,
           privacy: raw_info['elements'].first['privacy'].to_i
-          enrollments: raw_enrollments_info['enrollments']
+          enrollments: raw_enrollments_info['enrollments'],
           courses: raw_enrollments_info['courses']
         }
       end
