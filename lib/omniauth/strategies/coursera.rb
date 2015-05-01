@@ -22,15 +22,14 @@ module OmniAuth
           name: raw_info['elements'].first['name'].to_s,
           locale: raw_info['elements'].first['locale'].to_s,
           timezone: raw_info['elements'].first['timezone'].to_s,
-          privacy: raw_info['elements'].first['privacy'].to_i#,
-          #enrollments: raw_enrollments_info['elements']['enrollments']
+          privacy: raw_info['elements'].first['privacy'].to_i
         }
       end
 
       extra do
         {
-          raw_info: raw_info#,
-          #raw_enrollments_info: raw_enrollments_info
+          raw_info: raw_info,
+          raw_enrollments_info: raw_enrollments_info
         }
       end
 
@@ -39,10 +38,10 @@ module OmniAuth
         @raw_info ||= access_token.get('https://api.coursera.org/api/externalBasicProfiles.v1?q=me&fields=name,timezone,locale,privacy').parsed
       end
       
-      #def raw_enrollments_info
-      #  access_token.options[:mode] = :query
-      #  @raw_enrollments_info ||= access_token.get('https://api.coursera.org/api/users/v1/me/enrollments').parsed
-      #end
+      def raw_enrollments_info
+        access_token.options[:mode] = :query
+        @raw_enrollments_info ||= access_token.get('https://api.coursera.org/api/users/v1/me/enrollments').parsed
+      end
     end
   end
 end
