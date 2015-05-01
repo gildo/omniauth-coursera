@@ -28,13 +28,19 @@ module OmniAuth
 
       extra do
         {
-          raw_info: raw_info
+          raw_info: raw_info,
+          raw_enrollments_info: raw_enrollments_info
         }
       end
 
       def raw_info
         access_token.options[:mode] = :query
         @raw_info ||= access_token.get('https://api.coursera.org/api/externalBasicProfiles.v1?q=me&fields=name,timezone,locale,privacy').parsed
+      end
+      
+      def raw_enrollments_info
+        access_token.options[:mode] = :query
+        @raw_enrollments_info ||= access_token.get('https://api.coursera.org/api/users/v1/me/enrollments').parsed
       end
     end
   end
