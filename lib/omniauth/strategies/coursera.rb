@@ -19,7 +19,10 @@ module OmniAuth
 
       info do
         {
-          name: raw_info['elements'].first['name'],
+          name: raw_info['elements'].first['name'].to_s,
+          locale: raw_info['elements'].first['locale'].to_s,
+          timezone: raw_info['elements'].first['timezone'].to_s,
+          privacy: raw_info['elements'].first['privacy'].to_i
         }
       end
 
@@ -31,7 +34,7 @@ module OmniAuth
 
       def raw_info
         access_token.options[:mode] = :query
-        @raw_info ||= access_token.get('https://api.coursera.org/api/externalBasicProfiles.v1?q=me').parsed
+        @raw_info ||= access_token.get('https://api.coursera.org/api/externalBasicProfiles.v1?q=me&fields=name,timezone,locale,privacy').parsed
       end
     end
   end
